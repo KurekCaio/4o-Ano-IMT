@@ -1,4 +1,5 @@
 from math import *
+import cmath
 
 def soma(x,y):
     return (x+y)
@@ -13,7 +14,7 @@ def divide(x,y):
     return x/y
 
 def raiz(x):
-    return sqrt(x)
+    return cmath.sqrt(x)
 
 while(True):
     opcao = int(input("""------------Calculadora--------------
@@ -48,6 +49,6 @@ while(True):
             resp = raiz(x.real)
 
     if(resp.imag == 0):
-        print("%.5f" %resp.real)
+        print("%.3f" %resp.real)
     else:
-        print("%.5f + %.5fj" %(resp.real, resp.imag))
+        print("%.3f + %.3fj" %(resp.real, resp.imag))
