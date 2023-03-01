@@ -1,6 +1,6 @@
 # Calculadora
 
-
+import cmath
 
 while(True):
     print("===========================================")
@@ -26,11 +26,15 @@ while(True):
         case 4:
             res = x / y
         case 5:
-            res = x^(1/2)
+            res = cmath.sqrt(x)
 
     if res.imag == 0:
         print("-------------")
         print("Resposta: %.5f" %res.real)
+        print("-------------")
+    elif res.real == 0:
+        print("-------------")
+        print("Resposta: %.5fj" %res.imag)
         print("-------------")
     else:
         print("-------------")
