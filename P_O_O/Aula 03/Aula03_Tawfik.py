@@ -4,6 +4,7 @@ print("**************************************")
 print("* Bem-vindos ao jogo da adivinhacao! *")
 print("**************************************")
 print ("Tente acertar o número secreto de 1 a 99!")
+print("Regras: Somente número ACIMA DE ZERO e escolha uma das opções abaixo.")
 print("Escolha o seu nivel de dificuldade:")
 print("Facil (F), Medio (M) ou Dificil (D)")
 
@@ -34,7 +35,7 @@ for tentativas in range(1, numero_de_tentativas + 1):
         pontos_perdidos = abs(chute - NUMERO_SECRETO) / 2.0
         pontos -= pontos_perdidos
     else:
-        print("Você digitou uma opção inviálida! Por favor respeite as regras senão você nunca vai terminar o jogo!!")
+        print("Você digitou um número inválido! Por favor respeite as regras senão você nunca vai terminar o jogo!!")
         exit(0)
 
     print(f"O valor do seu chute eh: {chute}")
