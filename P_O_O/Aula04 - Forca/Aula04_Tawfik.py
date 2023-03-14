@@ -42,7 +42,7 @@ i = []
 
 
 
-while (ponto < 6) and (len(certas) != len(palavra)):
+while (ponto < 6):
     imprime(ponto, certas, erradas, palavra)
     chute = input("Chuta uma letra: ").lower()
     
@@ -52,9 +52,9 @@ while (ponto < 6) and (len(certas) != len(palavra)):
             break
         else:
             certas.append(chute)
-            for letra in secreta:
-                i = secreta.index(chute)
-                palavra = palavra[:i]+chute+palavra[i+1:]
+            for i in range(len(secreta)):
+                if secreta[i] == chute:
+                    palavra = palavra[:i]+chute+palavra[i+1:]
     else:
         if chute in erradas:
             print("BURRO!! REPETIU A PALAVRA!! NÃO MERECE CONTINUAR JOGANDO!!")
@@ -62,10 +62,10 @@ while (ponto < 6) and (len(certas) != len(palavra)):
         else:
             erradas.append(chute)
             ponto+=1
+    if '_' not in palavra:
+        print("Você Ganhou")
+        break
 
-#print(len(certas))
-#print(len(palavra))
-#print(ponto)
 print(f"A palavra era: {secreta}")
 os.system('pause')
 
