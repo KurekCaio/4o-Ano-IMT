@@ -49,9 +49,11 @@ while pontos < 6:
     if chute.lower() in palavra_secreta:
         if chute in certas:
             print("\nEsse chute já foi dado!!!\n")
+            os.system('pause')
             
         else:
             print("\nParabéns! Essa letra está na palavra secreta\n")
+            os.system('pause')
             
             certas.append(chute)
             
@@ -61,24 +63,29 @@ while pontos < 6:
 
     elif chute.isnumeric() == True:
         print("\nDigite uma LETRA!!!\n")
+        os.system('pause')
 
     elif chute in erradas:
         print("\nEsse chute já foi dado!!!\n")
+        os.system('pause')
         
     else:
         print("\nPutz... Essa letra não está na palavra secreta\n")
+        os.system('pause')
         pontos = pontos + 1
         erradas.append(chute)
                         
     if pontos == 6:
         imprime(pontos, certas, erradas, palavra)
         print("\nInfelizmente você gastou todas suas tentativas! Obrigado por jogar!!\n")
-        print("A palavra secreta era", palavra_secreta.upper() + "!")
-        
+        print("A palavra secreta era", palavra_secreta.upper() + "!\n")
+        os.system('pause')
         break
        
     if '_' not in palavra:
+        imprime(pontos, certas, erradas, palavra)
         pontos = 7
         print("\nMUITO BEM! VOCÊ VENCEU O JOGO DA FORCA!!!!!!!!\n")
-            
-os.system('pause')
+        print("A palavra secreta era", palavra_secreta.upper() + "!\n")
+        os.system('pause')
+    
