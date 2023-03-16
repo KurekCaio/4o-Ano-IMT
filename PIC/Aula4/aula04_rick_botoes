@@ -1,0 +1,67 @@
+/*
+ * File:   aula_05_bot_o.c
+ * Author: 20.00332-3
+ *
+ * Created on 9 de Março de 2023, 15:15
+ */
+// 'C' source line config statements
+// CONFIG
+#pragma config FOSC = INTOSCIO  // Oscillator Selection bits (INTOSC oscillator: I/O function on RA6/OSC2/CLKOUT pin, I/O function on RA7/OSC1/CLKIN)
+#pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
+#pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
+#pragma config MCLRE = ON       // RA5/MCLR/VPP Pin Function Select bit (RA5/MCLR/VPP pin function is MCLR)
+#pragma config BOREN = ON       // Brown-out Detect Enable bit (BOD enabled)
+#pragma config LVP = OFF        // Low-Voltage Programming Enable bit (RB4/PGM pin has digital I/O function, HV on MCLR must be used for programming)
+#pragma config CPD = OFF        // Data EE Memory Code Protection bit (Data memory code protection off)
+#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
+
+// #pragma config statements should precede project file includes.
+// Use project enums instead of #define for ON and OFF.
+
+
+#include <xc.h>
+
+#define _XTAL_FREQ 4000000
+
+#define amarelo PORTBbits.RB0
+#define verde PORTBbits.RB1
+#define vermelho PORTBbits.RB2
+
+#define bot_1 PORTAbits.RA0
+#define bot_2 PORTAbits.RA1
+
+
+
+void main(void) {
+    CMCON = 0x07;
+    TRISB = 0b00000000;
+    amarelo = 1;
+    verde = 0;
+    vermelho = 0;
+    
+    while(1){
+        
+        if (bot_1 == 1 && verde == 0 && vermelho == 0){
+            verde = 1;
+            __delay_ms(200);
+        } 
+        
+        
+        if (bot_1 == 1 && verde == 1 && vermelho == 0){
+            vermelho = 1;
+            __delay_ms(200);
+        }
+        
+        
+        if (bot_2 == 1 && verde == 1 && vermelho == 0){
+            verde = 0;
+            __delay_ms(200);
+        }
+        
+        if (bot_2 == 1 && verde == 1  && vermelho == 1){
+            vermelho = 0;
+            __delay_ms(200);
+        }
+       
+    }
+}
