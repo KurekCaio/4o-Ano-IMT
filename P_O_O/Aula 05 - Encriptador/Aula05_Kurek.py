@@ -31,8 +31,8 @@ def converter() :
 d = converter()
 while (1) :
     fraseEncriptada = input("Digite a frase que deseja encriptar: ")
-    encriptar(fraseOriginal,d)
-    desincriptar(novaFrase,d)
+    encriptar(fraseEncriptada,d)
+    desincriptar(fraseEncriptada,d)
 
 
 
