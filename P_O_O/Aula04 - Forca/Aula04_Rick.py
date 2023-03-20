@@ -1,4 +1,4 @@
-#Importaca das bibliotecas
+#Importacao das bibliotecas
 from random import choice
 import os
 
@@ -41,9 +41,11 @@ ponto = 0
 certas = []
 erradas = []
 palavra = iniciaPalavra(len(secreta))
-indice = []
 
-while ponto < 6 or palavra == secreta:
+letra = []
+
+
+while (ponto < 6) and (palavra != secreta):
     imprime(ponto, certas, erradas, palavra)
     palpite = input("\nQual e o seu palpite? ")
     
@@ -52,9 +54,10 @@ while ponto < 6 or palavra == secreta:
         if palpite not in certas:
             certas.append(palpite)
             
-            for letra in secreta:
-                indice = secreta.index(palpite)
-                palavra = palavra[:indice]+palpite+palavra[indice+1:]
+            
+            for letra in range(len(secreta)):
+                if secreta[letra] == palpite:
+                    palavra = palavra[:letra]+palpite+palavra[letra+1:]
                 
         else:
             print("\n\nJa deu esse palpite\n")
@@ -65,10 +68,12 @@ while ponto < 6 or palavra == secreta:
             ponto += 1
         else:
             print("\n\nJa deu esse palpite\n")
-    
-    
-    
-os.system('pause')
-    
-    
 
+
+if palavra == secreta:
+    print("Parabens, você acertou a palavra secreta!")
+
+else:
+    print("Não foi dessa vez! A palavra era secreta era {}".format(secreta))
+
+os.system('pause')
