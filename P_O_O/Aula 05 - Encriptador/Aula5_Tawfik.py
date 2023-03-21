@@ -67,7 +67,7 @@ def caracteres():
 # RENDA-SE AGORA OU PREPAREM-SE
 # PARA LUTAR!"""
 
-fraseOriginal = input("Digite a frase para encriptar: ")
+fraseOriginal = input("Digite a frase para encriptar: ").upper()
 
 # novaFrase = """hkthqktd-lt hqkq q tfektfeq!
 # tfektfeq td rgwkg!
