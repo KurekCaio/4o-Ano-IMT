@@ -31,35 +31,75 @@
 #define bot_1 PORTAbits.RA0
 #define bot_2 PORTAbits.RA1
 
-
+void Case(int n);
 
 void main(void) {
     CMCON = 0x07;
     TRISB = 0b00000000;
-    TRISB = 0b00000011;
-    
-    
-    while(1){
+    TRISA = 0b00000011;
+
         
+    for(int j=0; j<512; j++){
         for(int i=0; i<8; i++){
+            //if(bot_1 == 1){
+
             Case(i);
-            __delay_ms(200);
+            __delay_ms(15);
+            //}
         }
-    }
+    }    
 }
 
 void Case(int n){
     
     switch(n){
-        case 1:
+        case 0:
             in1 = 1;
             in2 = 0;
             in3 = 0;
             in4 = 0;
+            break;
+        case 1:
+            in1 = 1;
+            in2 = 1;
+            in3 = 0;
+            in4 = 0;
+            break;
         case 2:
+            in1 = 0;
+            in2 = 1;
+            in3 = 0;
+            in4 = 0;
+            break;
+        case 3:
+            in1 = 0;
+            in2 = 1;
+            in3 = 1;
+            in4 = 0;
+            break;
+        case 4:
+            in1 = 0;
+            in2 = 0;
+            in3 = 1;
+            in4 = 0;
+            break;
+        case 5:
+            in1 = 0;
+            in2 = 0;
+            in3 = 1;
+            in4 = 1;
+            break;
+        case 6:
+            in1 = 0;
+            in2 = 0;
+            in3 = 0;
+            in4 = 1;
+            break;
+        case 7:
             in1 = 1;
             in2 = 0;
             in3 = 0;
             in4 = 1;
+            break;
     }
 }
