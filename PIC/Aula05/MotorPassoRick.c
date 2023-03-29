@@ -31,24 +31,45 @@
 #define bot_1 PORTAbits.RA0
 #define bot_2 PORTAbits.RA1
 
+//Declaracao das funcoes
 void Case(int n);
+void main(void);
+void delay(unsigned int tempo);
 
-void main(void) {
-    CMCON = 0x07;
-    TRISB = 0b00000000;
-    TRISA = 0b00000011;
-
-        
-    for(int j=0; j<512; j++){
-        for(int i=0; i<8; i++){
-            //if(bot_1 == 1){
-
-            Case(i);
-            __delay_ms(15);
-            //}
-        }
-    }    
+void delay(unsigned int tempo){
+    unsigned int i;
+    for (i = 0; i < tempo; i++) {
+        __delay_ms(1);
+    }
 }
+
+void main(void){
+    CMCON = 0x07;
+    TRISA = 0b00000011;
+    TRISB = 0b00000000;
+    PORTA = 0x00;
+    PORTB = 0x00;
+
+    if(bot_1 == 1){  
+        for(int j=0; j<512; j++){
+            for(int i=0; i<8; i++){
+                Case(i);
+                delay(5);
+            }
+        }
+    }
+
+    if(bot_2 == 1){  
+        for(int j=0; j<512; j++){
+            for(int i=8; i<0; i--){
+                Case(i);
+                delay(5);
+            }
+        }
+    }
+    return;
+}
+
 
 void Case(int n){
     
