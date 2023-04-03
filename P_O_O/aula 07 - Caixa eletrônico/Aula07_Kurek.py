@@ -13,12 +13,14 @@ class Cliente():
         
     def deposito(self, i) :
         self.__saldo += i
+        print("Valor depositado: R$ %.2f" %(i))
         
     def pagamento(self, i):
         if (self.__saldo + self.__limite > i):
             self.__saldo -= i
+            print("Valor do pagamento: R$ %.2f" %(i))
         else:
-            print("ERRO! Saldo + Limite insuficiente")
+            print("ERRO! Saldo + Limite insuficiente...")
         
 eu = Cliente("Caio","123.456.789-00")
 
@@ -28,4 +30,10 @@ eu.deposito(1000)
 eu.exibeSaldo()
 
 eu.pagamento(2500)
+eu.exibeSaldo()
+
+eu.deposito(250)
+eu.exibeSaldo()
+
+eu.pagamento(2000)
 eu.exibeSaldo()
