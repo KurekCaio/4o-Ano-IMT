@@ -21,8 +21,8 @@ class Cliente():
         else:
             self.__saldo -= i
         
-palu = Cliente("Matheus Palu", 12345678910)
+palu = Cliente("Matheus Palu", "123.456.789-10")
 
 palu.deposita(150)
 palu.pagamento(1000)
-palu.exibeSaldo() 
+palu.exibeSaldo()
