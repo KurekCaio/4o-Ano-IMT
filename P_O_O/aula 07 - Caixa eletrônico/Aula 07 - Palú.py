@@ -19,11 +19,11 @@ class Cliente:
         return self.__CPF
     
     def exibeSaldo(self):
-        print("O saldo do cliente é:",self.__saldo)
+        print("O saldo do cliente é %i reais"%self.__saldo)
         return self.__saldo
         
     def exibeLimite(self):
-        print("O limite do cliente é:",self.__limite)
+        print("O limite do cliente é de %i reais"%self.__limite)
         return self.__limite
         
     def deposito(self, valor):
