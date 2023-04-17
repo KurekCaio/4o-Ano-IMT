@@ -1,7 +1,7 @@
 class Dispositivo():
     def __init__(self, nome):
         self.nome = nome
-        
+        print("\nNovo dispositivo...")
     def retornaID(self):
         return self.nome
     
@@ -34,9 +34,9 @@ class Microcontrolador(Dispositivo):
     
     def exibeInfo(self, tipo, nomeDispositivo):
         if tipo == "sensor":
-            print("\n{0}: {1}".format(nomeDispositivo, self.dadosSensores[nomeDispositivo]))
+            print("{0}: {1}".format(nomeDispositivo, self.dadosSensores[nomeDispositivo]))
             if tipo == "atuador":
-                print("\n{0}: {1}".format(nomeDispositivo, self.dadosAtuadores[nomeDispositivo]))
+                print("{0}: {1}".format(nomeDispositivo, self.dadosAtuadores[nomeDispositivo]))
 
 
 
@@ -47,11 +47,11 @@ class Atuador(Dispositivo):
         
     def exibeEstado(self):
         if self.estado == 1:
-            print("\nAtuador {0}: Ligado".format(self.nome))
+            print("Atuador {0}: Ligado".format(self.nome))
         elif self.estado == 0:
-            print("\nAtuador{0}: Desligado".format(self.nome))
+            print("Atuador {0}: Desligado".format(self.nome))
         else:
-            print("\nEstado invalido [deve ser 0 - desligado ou 1 - ligado]")
+            print("Estado invalido [deve ser 0 - desligado ou 1 - ligado]")
             return None
 
 
@@ -61,17 +61,17 @@ class LED(Atuador):
     def liga(self):
         if self.estado == 0:
             self.estado = 1
-            print("\nO atuador {0} ligou.".format(self.nome))
+            print("O atuador {0} ligou.".format(self.nome))
         else:
-            print("\nO atuador {0} ja esta ligado.".format(self.nome))
+            print("O atuador {0} ja esta ligado.".format(self.nome))
 
         
     def desliga(self):
         if self.estado == 1:
             self.estado = 0
-            print("\nO atuador {0} desligou.".format(self.nome))
+            print("O atuador {0} desligou.".format(self.nome))
         else:
-            print("\nO atuador {0} ja esta desligado.".format(self.nome))
+            print("O atuador {0} ja esta desligado.".format(self.nome))
 
 
 
@@ -84,33 +84,36 @@ class Motor(Atuador):
     def atribuiDirecao(self, direcao):
         self.direcao = direcao
         if self.direcao == 1:
-            print("\nMotor {0} no sentido horario.".format(self.nome))
+            print("Motor {0} no sentido horario.".format(self.nome))
         elif self.direcao == 0:
-            print("\nMotor {0} no sentido anti-horario.".format(self.nome))
+            print("Motor {0} no sentido anti-horario.".format(self.nome))
         else:
-            print("\nDirecao invalida [deve ser 0 - anti-horario ou 1 - horario]")
+            print("Direcao invalida [deve ser 0 - anti-horario ou 1 - horario]")
             return None
             
 
     def atribuiVelocidade(self, velocidade):
         if(0 <= velocidade <= 255):
             self.velocidade = velocidade
-            print("\nMotor {0} com nova velocidade: {1}".format(self.nome, self.velocidade))
+            print("Motor {0} com nova velocidade: {1}".format(self.nome, self.velocidade))
         else:
-            print("\nVelocidade invalida [deve ser entre 0 e 255]")
+            print("Velocidade invalida [deve ser entre 0 e 255]")
             return None
 
         
     def exibeEstado(self):
         if self.estado == 0:
-            print("\nO motor {0} esta deligado".format(self.nome))
+            print("O motor {0} esta deligado".format(self.nome))
             
         elif (self.estado == 1 and self.direcao == 0):    
-            print("\nO motor {0} esta na direcao anti-horaria, com velocidade {1}".format(self.nome, self.velocidade))
+            print("O motor {0} esta na direcao anti-horaria, com velocidade {1}".format(self.nome, self.velocidade))
   
         elif (self.estado == 1 and self.direcao == 1):    
-            print("\nO motor {0} esta na direcao horaria, com velocidade {1}".format(self.nome, self.velocidade))
+            print("O motor {0} esta na direcao horaria, com velocidade {1}".format(self.nome, self.velocidade))
     
+
+
+
 
 led = LED("L1", 0)
 led.exibeEstado()
@@ -119,7 +122,7 @@ led.desliga()
 
 motor = Motor("M1", 0, 0, 0)
 motor.atribuiDirecao(0)
-motor.atribuiVelocidade(12000)
+motor.atribuiVelocidade(10000)
 motor.exibeEstado()
 
 motor2 = Motor("M2", 1, 0, 0)
