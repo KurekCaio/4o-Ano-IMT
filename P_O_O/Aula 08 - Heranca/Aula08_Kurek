@@ -1,0 +1,88 @@
+#Aula 08
+
+class Dispositivo():
+    def __init__(self,nome):
+        self.nome = nome
+    
+    def retornaID(self):
+        return  'Nome: '+ self.nome
+  
+
+      
+class Atuador(Dispositivo):
+    def __init__(self, nome, estado):
+        super().__init__(nome)
+        self.estado = estado
+        
+    def exibeEstado(self):
+        print(super().retornaID())
+        if (self.estado == 1):
+            return 'Estado: Ligado'
+        else:
+            return 'Estado: Desligado'
+            
+  
+    
+class LED(Atuador):
+    def __init__(self, nome, estado):
+        super().__init__(nome, estado)
+        
+    def liga(self):
+        self.estado = 1
+        
+    def desliga(self):
+        self.estado = 0
+
+
+
+class Motor(Atuador):
+    def __init__(self,nome,estado, direcao, velocidade):
+        super().__init__(nome, estado)
+        self.atribuiDirecao(direcao)
+        self.atribuiVelocidade(velocidade)
+        
+        
+    def atribuiDirecao(self, direcaoNova):
+        self.direcao = direcaoNova
+        
+    def atribuiVelocidade(self, velocidadeNova):
+        if velocidadeNova > 0:
+            self.estado = 1
+            self.velocidade = velocidadeNova
+        else:
+            self.estado = 0
+        
+    def exibeEstado(self):
+        print(super().exibeEstado())
+        if (self.estado == 1):
+            if (self.direcao == 1):
+                return ('Direção: Horário\nVelocidade: %i' %(self.velocidade)) 
+            else:
+                return ('Direção: Anti-Horário\nVelocidade: %i' %(self.velocidade))
+        else:
+            return ''
+            
+        
+
+print('==== LED =====')
+y = LED("Ku", 1)
+print(y.exibeEstado())
+y.desliga()
+print('\n → desliga led \n')
+print(y.exibeEstado())
+y.liga()
+print('\n → liga led \n')
+print(y.exibeEstado())
+print('================\n')
+
+print('==== Motor =====')
+z = Motor("Palu", 1, 1, 0)
+print(z.exibeEstado())
+z.atribuiDirecao(0)
+z.atribuiVelocidade(30)
+print('\n → altera direção e velocidade \n')
+print(z.exibeEstado())
+z.atribuiVelocidade(0)
+print('\n → altera velocidade para 0\n')
+print(z.exibeEstado())
+print('================\n')
