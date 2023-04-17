@@ -1,0 +1,134 @@
+class Dispositivo():
+    def __init__(self, nome):
+        self.nome = nome
+        
+    def retornaID(self):
+        return self.nome
+    
+    
+
+class Sensor(Dispositivo):
+    def __init__(self, nome, dado = None):
+        super().__init__(nome)
+        self.dado = dado
+        
+    def enviaDado(self):
+        from random import randrange
+        self.dado = randrange(1023)
+        return self.dado
+    
+
+
+class Microcontrolador(Dispositivo):
+    def __init__(self, nome):
+        super().__init__(nome)
+        self.dadosSensores = dict()
+        self.dadosAtuadores = dict()
+        
+    def recebeDado(self, nomeSensor, valorSensor):
+        self.dadosSensores[nomeSensor] = valorSensor
+        
+    def enviaDado(self, nomeAtuador, estado):
+        self.dadosAtuadores[nomeAtuador] = estado
+        return self.dadosAtuadores[nomeAtuador]
+    
+    def exibeInfo(self, tipo, nomeDispositivo):
+        if tipo == "sensor":
+            print("\n{0}: {1}".format(nomeDispositivo, self.dadosSensores[nomeDispositivo]))
+            if tipo == "atuador":
+                print("\n{0}: {1}".format(nomeDispositivo, self.dadosAtuadores[nomeDispositivo]))
+
+
+
+class Atuador(Dispositivo):
+    def __init__(self, nome, estado):
+        super().__init__(nome)
+        self.estado = estado
+        
+    def exibeEstado(self):
+        if self.estado == 1:
+            print("\nAtuador {0}: Ligado".format(self.nome))
+        elif self.estado == 0:
+            print("\nAtuador{0}: Desligado".format(self.nome))
+        else:
+            print("\nEstado invalido [deve ser 0 - desligado ou 1 - ligado]")
+            return None
+
+
+
+class LED(Atuador):
+        
+    def liga(self):
+        if self.estado == 0:
+            self.estado = 1
+            print("\nO atuador {0} ligou.".format(self.nome))
+        else:
+            print("\nO atuador {0} ja esta ligado.".format(self.nome))
+
+        
+    def desliga(self):
+        if self.estado == 1:
+            self.estado = 0
+            print("\nO atuador {0} desligou.".format(self.nome))
+        else:
+            print("\nO atuador {0} ja esta desligado.".format(self.nome))
+
+
+
+class Motor(Atuador):
+    def __init__(self, nome, estado, direcao, velocidade):
+        super().__init__(nome, estado)
+        self.direcao = direcao
+        self.velocidade = velocidade
+        
+    def atribuiDirecao(self, direcao):
+        self.direcao = direcao
+        if self.direcao == 1:
+            print("\nMotor {0} no sentido horario.".format(self.nome))
+        elif self.direcao == 0:
+            print("\nMotor {0} no sentido anti-horario.".format(self.nome))
+        else:
+            print("\nDirecao invalida [deve ser 0 - anti-horario ou 1 - horario]")
+            return None
+            
+
+    def atribuiVelocidade(self, velocidade):
+        if(0 <= velocidade <= 255):
+            self.velocidade = velocidade
+            print("\nMotor {0} com nova velocidade: {1}".format(self.nome, self.velocidade))
+        else:
+            print("\nVelocidade invalida [deve ser entre 0 e 255]")
+            return None
+
+        
+    def exibeEstado(self):
+        if self.estado == 0:
+            print("\nO motor {0} esta deligado".format(self.nome))
+            
+        elif (self.estado == 1 and self.direcao == 0):    
+            print("\nO motor {0} esta na direcao anti-horaria, com velocidade {1}".format(self.nome, self.velocidade))
+  
+        elif (self.estado == 1 and self.direcao == 1):    
+            print("\nO motor {0} esta na direcao horaria, com velocidade {1}".format(self.nome, self.velocidade))
+    
+
+led = LED("L1", 0)
+led.exibeEstado()
+led.liga()
+led.desliga()
+
+motor = Motor("M1", 0, 0, 0)
+motor.atribuiDirecao(0)
+motor.atribuiVelocidade(12000)
+motor.exibeEstado()
+
+motor2 = Motor("M2", 1, 0, 0)
+motor2.atribuiDirecao(1)
+motor2.atribuiVelocidade(14)
+motor2.exibeEstado()
+
+motor3 = Motor("M3", 1, 0, 0)
+motor3.atribuiDirecao(2)
+motor3.atribuiDirecao(1)
+
+ 
