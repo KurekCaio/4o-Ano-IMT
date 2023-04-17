@@ -30,14 +30,20 @@ class LED(Atuador):
 class Motor(Atuador):
     def __init__(self, nome, estado, direcao, velocidade):
         super().__init__(nome, estado)
-        self.direcao = direcao
-        self.velocidade = velocidade
+        self.atribuiDirecao(direcao)
+        self.atribuiVelocidade(velocidade)
+        
+        
         
     def atribuiDirecao(self, direcao):
         self.direcao = direcao
             
     def atribuiVelocidade(self, velocidade):
         self.velocidade = velocidade
+        if(velocidade > 0):
+            self.estado = 1
+        else:
+            self.estado = 0
     
     def exibeEstado(self):
         print(super().exibeEstado())
@@ -49,6 +55,10 @@ class Motor(Atuador):
         else:
             return ''
 
-x=Motor("nome", 1, 0, 200)
+x=Motor("nome", 1, 0, 0)
+print(x.exibeEstado())
+x.atribuiVelocidade(255)
 
 print(x.exibeEstado())
+
+
