@@ -1,0 +1,80 @@
+/*
+ * File:   aula06_macro.c
+ * Author: 20.00080-4
+ *
+ * Created on 20 de Abril de 2023, 15:49
+ */
+
+// 'C' source line config statements
+// CONFIG
+#pragma config FOSC = INTOSCIO  // Oscillator Selection bits (INTOSC oscillator: I/O function on RA6/OSC2/CLKOUT pin, I/O function on RA7/OSC1/CLKIN)
+#pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
+#pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
+#pragma config MCLRE = ON       // RA5/MCLR/VPP Pin Function Select bit (RA5/MCLR/VPP pin function is MCLR)
+#pragma config BOREN = ON       // Brown-out Detect Enable bit (BOD enabled)
+#pragma config LVP = OFF        // Low-Voltage Programming Enable bit (RB4/PGM pin has digital I/O function, HV on MCLR must be used for programming)
+#pragma config CPD = OFF        // Data EE Memory Code Protection bit (Data memory code protection off)
+#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
+
+// #pragma config statements should precede project file includes.
+// Use project enums instead of #define for ON and OFF.
+
+
+#include <xc.h>
+
+#define _XTAL_FREQ 4000000
+
+#define BTN01 PORTBbits.RB0
+#define BTN02 PORTBbits.RB1
+#define BTN03 PORTBbits.RB2
+#define BTN04 PORTBbits.RB3
+
+#define A PORTAbits.RA0
+#define B PORTAbits.RA1
+#define C PORTAbits.RA2
+#define D PORTAbits.RA3
+
+#define LE1 PORTAbits.RA4
+#define LE2 PORTAbits.RA5
+#define LE3 PORTAbits.RA6
+#define LE4 PORTAbits.RA7
+
+//Declaracao das funcoes
+void main(void);
+void delay(unsigned int tempo);
+
+void delay(unsigned int tempo){
+    unsigned int i;
+    for (i = 0; i < tempo; i++) {
+        __delay_ms(1);
+    }
+}
+
+void main(void){
+    CMCON = 0x07;
+    TRISA = 0b00000000;
+    TRISB = 0b00001111;
+    PORTA = 0x00;
+    PORTB = 0x00;
+    
+    while(1){
+        
+    if(BTN01 == 1){  
+      
+    }
+
+    if(BTN02 == 1){  
+
+    }
+    
+    if(BTN03 == 1){  
+
+    }
+
+    if(BTN04 == 1){  
+
+    }
+    
+    return;
+    }
+}
