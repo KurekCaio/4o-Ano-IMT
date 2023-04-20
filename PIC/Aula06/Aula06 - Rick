@@ -42,6 +42,7 @@
 //Declaracao das funcoes
 void main(void);
 void delay(unsigned int tempo);
+void atualiza(int cont);
 
 void delay(unsigned int tempo){
     unsigned int i;
@@ -50,6 +51,16 @@ void delay(unsigned int tempo){
     }
 }
 
+void atualiza(int cont){
+    ((cont |= (0b0010000)));
+    PORTA = cont;
+    //delay(10);
+    //EL = 0;
+    //delay(10);
+    //EL = 1;
+}
+
+
 void main(void){
     CMCON = 0x07;
     TRISA = 0b00000000;
@@ -57,22 +68,38 @@ void main(void){
     PORTA = 0x00;
     PORTB = 0x00;
     
+    int valor=0;
+    
     while(1){
-        
+    
+    //incrementa o placar 1
     if(BTN01 == 1){  
-      
+        LE2 = 1;
+        if(valor < 9) valor++;
+        atualiza(valor);    
     }
 
+    //decrementa o placar 1
     if(BTN02 == 1){  
-
+        LE2 = 1;
+        delay(10);
+        LE2 = 0;
+        if(valor > 0) valor--;
+        atualiza(valor);
     }
     
+    //incrementa o placar 2
     if(BTN03 == 1){  
-
+        LE4 = 1;
+        if(valor < 9) valor++;
+        atualiza(valor);
     }
 
+    //decrementa o placar 2
     if(BTN04 == 1){  
-
+        LE4 = 1;
+        if(valor > 0) valor--;
+        atualiza(valor);
     }
     
     return;
