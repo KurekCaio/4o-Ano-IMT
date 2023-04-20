@@ -1,77 +1,168 @@
 from random import randrange
 
 class Dispositivo():
+    
     def __init__(self, nome):
         self.nome = nome
+        
     def retornaID(self):
         return self.nome
     
 class Sensor(Dispositivo):
+    
     def __init__(self, nome, dado = None):
         super().__init__(nome)
         self.dado = dado
+        
     def enviaDado(self):
         self.dado = randrange(1023)
         return self.dado
     
 class Microcontrolador(Dispositivo):
+    
     def __init__(self, nome):
         super().__init__(nome)
         self.dadosSensores = dict()
         self.dadosAtuadores = dict()
+        
     def recebeDado(self, nomeSensor, valorSensor):
         self.dadosSensores[nomeSensor] = valorSensor
+        
     def enviaDado(self, nomeAtuador, estado):
         self.dadosAtuadores[nomeAtuador] = estado
         return self.dadosAtuadores[nomeAtuador]
+    
     def exibeInfo(self, tipo, nomeDispositivo):
+        
         if tipo == "sensor":
             print("{0}: {1}".format(nomeDispositivo, self.dadosSensores[nomeDispositivo]))
+        
         if tipo == "atuador":
             print("{0}: {1}".format(nomeDispositivo, self.dadosAtuadores[nomeDispositivo]))
          
 class Atuador(Dispositivo):
-    def __init__(self, nome, estado = None):
+    
+    def __init__(self, nome, estado):
         super().__init__(nome)
         self.estado = estado
+        
     def exibeEstado(self):
+        
         if self.estado == 1:
-            print("O nome do atuador é: {0} e seu estado é ligado".format(nomeDispositivo))
+            print("O nome do atuador é: {0} e seu estado é ligado".format(self.nome))
+       
         elif self.estado == 0:
-            print("O nome do atuador é: {0} e seu estado é ligado".format(nomeDispositivo))
-
+            print("O nome do atuador é: {0} e seu estado é desligado".format(self.nome))
+       
+        else:
+            print("O estado deve ser 0(desligado) ou 1(ligado)!")
+                  
 class LED(Atuador):
+    
     def liga(self):
         estado = 1
+        print("O LED está ligado!")
         return estado
-    def desliga(self):#***
+    
+    def desliga(self):
         estado = 0
+        print("O LED está desligado!")
         return estado
 
 class Motor(Atuador):
-    def __init__(self, nome, direcao = None, velocidade = None):
-        super().__init__(nome)
+    
+    def __init__(self, nome, estado, direcao, velocidade):
+        super().__init__(nome,estado)
         self.direcao = direcao
         self.velocidade = velocidade
-    def atribuiDirecao(self):#***
-        if self.direcao() != (0 or 1):
-            print("Essa direção não existe!")
-        # Sentido Horário = 1
-        # Sentido Anti-Horário = 0
-        self.direcao = randrange(2)
-        return self.direcao
-    def atribuiVelocidade(self):#***
-        self.velocidade = randrange(256)
-        if self.velocidade() > 0:
-            estado = 1
-        else:
-            estado = 0
-        return estado
+    
+    def atribuiDirecao(self, direcao):
+        
+        self.direcao = direcao
+          
+    def exibeDirecao(self):
+        if self.direcao == 0:
+            print("O motor {0} está girando no sentido anti-horario.".format(self.nome))
 
-sensor1 = Sensor("Ultrassom")
+        elif self.direcao == 1:
+            print("O motor {0} está girando no sentido horario.".format(self.nome))
+        
+        else:
+            print("A direção deve ser 0(Anti-horário) ou 1(Horário)!")
+           
+    def atribuiVelocidade(self, velocidade):
+        
+        self.velocidade = velocidade
+        
+    def exibeVelocidade(self):  
+        
+        if(0 < self.velocidade <= 255):
+            self.estado = 1
+            print("Velocidade do motor {0}: {1}".format(self.nome,self.velocidade))
+            
+        elif self.velocidade == 0:
+            self.estado = 0
+            print("Velocidade do motor {0}: {1}".format(self.nome,self.velocidade))
+        
+        else:
+            self.estado = 2
+            print("Velocidade inválida!")
+        
+    def exibeEstado(self):
+            
+        if self.estado == 1:
+                 
+            if self.direcao == 0:
+                print("O motor {0} está ligado e girando no sentido anti-horario e sua velocidade é de {1}.".format(self.nome, self.velocidade))
+
+            elif self.direcao == 1:
+                print("O motor {0} está ligado e girando no sentido horario e sua velocidade é de {1}.".format(self.nome, self.velocidade))
+            
+            else:
+                print("A direção deve ser 0(Anti-horário) ou 1(Horário)!")
+                
+        
+        elif self.estado == 0:
+            print("O nome do motor é: {0} e seu estado é desligado".format(self.nome))
+                   
+        else:
+            print("O estado do motor {0} deve ser 0(desligado) ou 1(ligado), ajuste a velocidade!".format(self.nome))
+
+        
+"""sensor1 = Sensor("Ultrassom")
 arduino = Microcontrolador("Arduino")
 arduino.recebeDado(sensor1.retornaID(), sensor1.enviaDado())
 arduino.exibeInfo("sensor", sensor1.retornaID())
 sensor2 = Sensor("Sensor de Linha")
 arduino.recebeDado(sensor2.retornaID(), sensor2.enviaDado())
-arduino.exibeInfo("sensor", sensor2.retornaID())
+arduino.exibeInfo("sensor", sensor2.retornaID())"""
+
+print("\nTESTE DO ATUADOR 1\n")
+
+atuador_1 = Atuador("Atuador 1",1)
+atuador_1.exibeEstado()
+
+print("\nTESTE DO LED 1\n")
+
+led_1 = LED("LED 1", 1)
+led_1.exibeEstado()
+led_1.desliga()
+led_1.liga()
+
+print("\nTESTE DO MOTOR 1\n")
+
+motor_1 = Motor("Motor 1", 1, 1, 200)
+motor_1.atribuiVelocidade(1000)
+motor_1.exibeVelocidade()
+motor_1.atribuiDirecao(0)
+motor_1.exibeDirecao()
+motor_1.exibeEstado()
+
+print("\nTESTE DO LED 2\n")
+
+motor_2 = Motor("Motor 2", 1, 0, 40)
+motor_2.atribuiVelocidade(200)
+motor_2.exibeVelocidade()
+motor_2.atribuiDirecao(1)
+motor_2.exibeDirecao()
+motor_2.exibeEstado()
