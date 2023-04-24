@@ -78,14 +78,23 @@ class Motor(Atuador):
     
     def atribuiDirecao(self, direcao):
         
-        self.direcao = direcao
+        if self.direcao == 0 or 1:
+            
+            self.direcao = direcao
+            
+        else:
+            
+            print("A direção deve ser 0(Anti-horário) ou 1(Horário)!")
           
     def exibeDirecao(self):
+        
         if self.direcao == 0:
-            print("O motor {0} está girando no sentido anti-horario.".format(self.nome))
+            
+            print("O motor {0} está girando no sentido anti-horário.".format(self.nome))
 
         elif self.direcao == 1:
-            print("O motor {0} está girando no sentido horario.".format(self.nome))
+            
+            print("O motor {0} está girando no sentido horário.".format(self.nome))
         
         else:
             print("A direção deve ser 0(Anti-horário) ou 1(Horário)!")
@@ -94,14 +103,24 @@ class Motor(Atuador):
         
         self.velocidade = velocidade
         
+        if(0 < self.velocidade <= 255):
+            
+            self.estado = 1
+            
+        elif self.velocidade == 0:
+            
+            self.estado = 0
+            
+        else:
+            self.estado = 2
+            print("Velocidade inválida! Deve estar entre 0 e 255.")
+        
     def exibeVelocidade(self):  
         
         if(0 < self.velocidade <= 255):
-            self.estado = 1
             print("Velocidade do motor {0}: {1}".format(self.nome,self.velocidade))
             
         elif self.velocidade == 0:
-            self.estado = 0
             print("Velocidade do motor {0}: {1}".format(self.nome,self.velocidade))
         
         else:
@@ -113,17 +132,17 @@ class Motor(Atuador):
         if self.estado == 1:
                  
             if self.direcao == 0:
-                print("O motor {0} está ligado e girando no sentido anti-horario e sua velocidade é de {1}.".format(self.nome, self.velocidade))
+                print("O nome do motor é {0}, ele está ligado, girando no sentido anti-horário e sua velocidade é de {1}.".format(self.nome, self.velocidade))
 
             elif self.direcao == 1:
-                print("O motor {0} está ligado e girando no sentido horario e sua velocidade é de {1}.".format(self.nome, self.velocidade))
+                print("O nome do motor é {0}, ele está ligado, girando no sentido horário e sua velocidade é de {1}.".format(self.nome, self.velocidade))
             
             else:
                 print("A direção deve ser 0(Anti-horário) ou 1(Horário)!")
                 
         
         elif self.estado == 0:
-            print("O nome do motor é: {0} e seu estado é desligado".format(self.nome))
+            print("O nome do motor é {0} e ele está ligado".format(self.nome))
                    
         else:
             print("O estado do motor {0} deve ser 0(desligado) ou 1(ligado), ajuste a velocidade!".format(self.nome))
@@ -148,21 +167,40 @@ led_1 = LED("LED 1", 1)
 led_1.exibeEstado()
 led_1.desliga()
 led_1.liga()
+led_1.exibeEstado()
 
 print("\nTESTE DO MOTOR 1\n")
 
 motor_1 = Motor("Motor 1", 1, 1, 200)
 motor_1.atribuiVelocidade(1000)
-motor_1.exibeVelocidade()
+#motor_1.exibeVelocidade()
 motor_1.atribuiDirecao(0)
-motor_1.exibeDirecao()
+#motor_1.exibeDirecao()
 motor_1.exibeEstado()
 
-print("\nTESTE DO LED 2\n")
+print("\nTESTE DO MOTOR 2\n")
 
 motor_2 = Motor("Motor 2", 1, 0, 40)
 motor_2.atribuiVelocidade(200)
-motor_2.exibeVelocidade()
+#motor_2.exibeVelocidade()
 motor_2.atribuiDirecao(1)
-motor_2.exibeDirecao()
+#motor_2.exibeDirecao()
+motor_2.exibeEstado()
+
+print("\nTESTE DO MOTOR 3\n")
+
+motor_2 = Motor("Motor 3", 1, 0, 40)
+motor_2.atribuiVelocidade(0)
+#motor_2.exibeVelocidade()
+motor_2.atribuiDirecao(1)
+#motor_2.exibeDirecao()
+motor_2.exibeEstado()
+
+print("\nTESTE DO MOTOR 4\n")
+
+motor_2 = Motor("Motor 4", 1, 0, 40)
+motor_2.atribuiVelocidade(255)
+#motor_2.exibeVelocidade()
+motor_2.atribuiDirecao(0)
+#motor_2.exibeDirecao()
 motor_2.exibeEstado()
