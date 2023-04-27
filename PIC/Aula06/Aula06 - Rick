@@ -105,3 +105,194 @@ void main(void){
     return;
     }
 }
+
+
+/*
+
+#pragma config FOSC = INTOSCIO  // Oscillator Selection bits (INTOSC oscillator: I/O function on RA6/OSC2/CLKOUT pin, I/O function on RA7/OSC1/CLKIN)
+#pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
+#pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
+#pragma config MCLRE = ON       // RA5/MCLR/VPP Pin Function Select bit (RA5/MCLR/VPP pin function is MCLR)
+#pragma config BOREN = ON       // Brown-out Detect Enable bit (BOD enabled)
+#pragma config LVP = OFF        // Low-Voltage Programming Enable bit (RB4/PGM pin has digital I/O function, HV on MCLR must be used for programming)
+#pragma config CPD = OFF        // Data EE Memory Code Protection bit (Data memory code protection off)
+#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
+
+
+#include <xc.h>
+
+#define _XTAL_FREQ 4000000
+#define EN1 PORTBbits.RB0
+#define EN2 PORTBbits.RB1
+#define EN3 PORTBbits.RB2
+#define EN4 PORTBbits.RB3
+
+#define A PORTAbits.RA3
+#define B PORTAbits.RA2
+#define C PORTAbits.RA1
+#define D PORTAbits.RA0
+
+#define BIE PORTAbits.RA7
+#define BDE PORTAbits.RA5
+
+#define BID PORTBbits.RB4
+#define BDD PORTBbits.RB6
+
+void verifica();
+void atualiza();
+void display(int);
+
+int placar01 = 0;
+int placar02 = 0;
+
+int dezena01 = 0;
+int unidade01 = 0;
+
+int dezena02 = 0;
+int unidade02 = 0;
+
+void main(void) {
+    CMCON = 0x07;
+    TRISA = 0b11000000;
+    TRISB = 0b00110000;
+    
+    EN1 = 1;
+    EN2 = 1;
+    EN3 = 1;
+    EN4 = 1;
+
+    while(1){
+        verifica();
+        atualiza();
+    }
+}
+
+void verifica(){
+    if(BIE == 1){
+        placar01++;
+        __delay_ms(100);
+    }
+    else if(BDE == 1){
+        placar01--;
+        __delay_ms(100);
+    }
+    
+    if(placar01 > 99){
+        placar01 = 99;
+    }
+    else if(placar01 < 0){
+        placar01 = 0;
+    }
+    
+    if(BID == 1){
+        placar02++;
+        __delay_ms(100);
+    }
+    else if(BDD == 1){
+        placar02--;
+        __delay_ms(100);
+    }
+    
+    if(placar02 > 99){
+        placar02 = 99;
+    }
+    else if(placar02 < 0){
+        placar02 = 0;
+    }
+}
+
+void atualiza(){
+    dezena01 = placar01/10;
+    unidade01 = placar01 - dezena01*10;
+    
+    dezena02 = placar02 / 10;
+    unidade02 = placar02 - dezena02*10;
+    
+    display(dezena01);
+    EN1 = 0;
+    __delay_ms(10);
+    EN1 = 1;
+    
+    display(unidade01);
+    EN2 = 0;
+    __delay_ms(10);
+    EN2 = 1;
+    
+    display(dezena02);
+    EN3 = 0;
+    __delay_ms(10);
+    EN3 = 1;
+    
+    display(unidade02);
+    EN4 = 0;
+    __delay_ms(10);
+    EN4 = 1;
+      
+}
+
+void display(int number){
+    switch(number){
+        case 0:
+            A = 0;
+            B = 0;
+            C = 0;
+            D = 0;
+            break;
+        case 1:
+            A = 1;
+            B = 0;
+            C = 0;
+            D = 0;
+            break;
+        case 2:
+            A = 0;
+            B = 1;
+            C = 0;
+            D = 0;
+            break;
+        case 3:
+            A = 1;
+            B = 1;
+            C = 0;
+            D = 0;
+            break;
+        case 4:
+            A = 0;
+            B = 0;
+            C = 1;
+            D = 0;
+            break;
+        case 5:
+            A = 1;
+            B = 0;
+            C = 1;
+            D = 0;
+            break;
+        case 6:
+            A = 0;
+            B = 1;
+            C = 1;
+            D = 0;
+            break;
+        case 7:
+            A = 1;
+            B = 1;
+            C = 1;
+            D = 0;
+            break;
+        case 8:
+            A = 0;
+            B = 0;
+            C = 0;
+            D = 1;
+            break;
+        case 9:
+            A = 1;
+            B = 0;
+            C = 0;
+            D = 1;
+            break;
+    }
+}
+
+*/
